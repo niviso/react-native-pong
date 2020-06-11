@@ -3,7 +3,7 @@
 const Engine = {
   screenWidth : null,
   screenHeight: null,
-  speed: 1,
+  speed: 5,
   initialized: false,
   init: function(props){
     const {screenWidth,screenHeight,speed=5} = props;
@@ -27,7 +27,7 @@ const Engine = {
   const collisionWithCharacterY = (tmpState.ball.transform.position.y > tmpState.player1.transform.position.y) && (tmpState.ball.transform.position.y < tmpState.player1.transform.position.y+tmpState.player1.transform.size.height);
   const collidingWithCharacter = collisionWithCharacterX && collisionWithCharacterY;
 
-  const collisionWithCharacterX_02 = (tmpState.ball.transform.position.x+tmpState.player2.transform.size.width > tmpState.player2.transform.position.x-tmpState.player2.transform.size.width);
+  const collisionWithCharacterX_02 = (tmpState.ball.transform.position.x > tmpState.player2.transform.position.x-tmpState.player2.transform.size.width);
   const collisionWithCharacterY_02 = (tmpState.ball.transform.position.y > tmpState.player2.transform.position.y) && (tmpState.ball.transform.position.y < tmpState.player2.transform.position.y+tmpState.player2.transform.size.height);
   const collidingWithCharacter_02 = collisionWithCharacterX_02 && collisionWithCharacterY_02;
 
@@ -56,9 +56,9 @@ const Engine = {
     }
 
     if(collisionRight || collisionLeft){
-      tmpState.ball.transform.position.x = 100;
-      tmpState.ball.transform.position.y = 100;
-      speed = 5;
+      tmpState.ball.transform.position.x = this.screenWidth/2;
+      tmpState.ball.transform.position.y = this.screenHeight/2;
+      this.speed = 5;
       if(collisionRight){
         tmpState.player1.points++;
       }else {

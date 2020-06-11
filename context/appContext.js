@@ -50,8 +50,8 @@ const AppProvider = (props) => {
           y: 0
         },
         size: {
-          width: 50,
-          height: 50
+          width: 25,
+          height: 25
         },
         directionVector: {
           x: 1,

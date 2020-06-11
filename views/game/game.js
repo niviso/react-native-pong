@@ -8,38 +8,19 @@ import Ball from '../../components/ball/ball';
 import Player from '../../components/player/player';
 import Engine from '../../helpers/engine';
 
+AudioHelper.play("bg");
 
-export default function Game() {
+
+export default function Game(props) {
+  const {UpdateSceen} = props;
   const [state,setState] = useContext(AppContext);
+  const requestRef = React.useRef();
+  const previousTimeRef = React.useRef();
+  const [count, setCount] = React.useState(0)
 
-  const Up = () => {
-    var tmpState = JSON.parse(JSON.stringify(state));
-    tmpState.player1.transform.directionVector.y -= 1;
-    setState(tmpState);
-
-  }
-
-  const Down = () => {
-    var tmpState = JSON.parse(JSON.stringify(state));
-    tmpState.player1.transform.directionVector.y = 1;
-    setState(tmpState);
-
-  }
-
-  const Stop = () => {
-    var tmpState = JSON.parse(JSON.stringify(state));
-    tmpState.player1.transform.directionVector.y = 0;
-    setState(tmpState);
-
-  }
-
-  function random(min, max) {
-  const rand = (min + Math.random() * (max - min)).toFixed(2);;
-  console.log(rand);
-  return rand;
-}
-  useEffect(() => {
-    const interval = setInterval(() => {
+  const animate = time => {
+    if (previousTimeRef.current != undefined) {
+      const deltaTime = time - previousTimeRef.current;
 
       var tmpState = Engine.getNewPosition(state);
 
@@ -68,13 +49,49 @@ export default function Game() {
       } else if(tmpState.player2.transform.position.y+tmpState.player2.transform.size.height > Engine.screenHeight){
         tmpState.player2.transform.position.y = Engine.screenHeight - tmpState.player2.transform.size.height;
       }
-      if(tmpState.ball.colliding){
-        //AudioHelper.play("hit1");
-      }
-      setState(tmpState);
-    },1);
 
-    return () => clearInterval(interval);
+      if(tmpState.player1.points > 1 ||tmpState.player2.points > 1){
+        UpdateSceen("start");
+      }
+
+      setState(tmpState);
+    }
+    previousTimeRef.current = time;
+    requestRef.current = requestAnimationFrame(animate);
+  }
+
+
+
+  const Up = () => {
+    var tmpState = JSON.parse(JSON.stringify(state));
+    tmpState.player1.transform.directionVector.y -= 1;
+    setState(tmpState);
+
+  }
+
+  const Down = () => {
+    var tmpState = JSON.parse(JSON.stringify(state));
+    tmpState.player1.transform.directionVector.y = 1;
+    setState(tmpState);
+
+  }
+
+  const Stop = () => {
+    var tmpState = JSON.parse(JSON.stringify(state));
+    tmpState.player1.transform.directionVector.y = 0;
+    setState(tmpState);
+
+  }
+
+  function random(min, max) {
+  const rand = (min + Math.random() * (max - min)).toFixed(2);;
+  console.log(rand);
+  return rand;
+}
+  useEffect(() => {
+
+      requestRef.current = requestAnimationFrame(animate);
+      return () => cancelAnimationFrame(requestRef.current);
   });
 
   return (

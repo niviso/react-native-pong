@@ -5,7 +5,10 @@ const AudioHelper = {
     list: [],
     muted: false,
     init: async function(props){
-      const {file,name,volume,pitch,looping,audioPlay} = props;
+      const {file,name,volume,pitch,looping,autoPlay} = props;
+      if(this.list[name]){
+        return; 
+      }
       let newAudio =  new Audio.Sound();
 
       this.list[name] = newAudio;
@@ -20,7 +23,7 @@ const AudioHelper = {
       if(pitch){
         this.list[name].setRateAsync(pitch,true,1);
       }
-      if(audioPlay){
+      if(autoPlay){
         this.play(name);
       }
 

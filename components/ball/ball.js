@@ -1,8 +1,6 @@
-import React,{useContext,useEffect,useState} from 'react';
-import { Text, View,Image,Dimensions } from 'react-native';
-import {AppContext} from '../../context/appContext';
-import {impact,bg} from '../../helpers/sounds';
-import AudioHelper from '../../helpers/AudioHelper';
+import React from 'react';
+import { View } from 'react-native';
+
 
 export default function Ball(props) {
   const {transform} = props;
