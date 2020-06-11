@@ -1,4 +1,3 @@
-export const hit = require('../assets/sound/02.mp3');
-export const impact = require('../assets/sound/impact.wav');
-
+export const impact = require('../assets/sound/impact.mp3');
 export const bg = require('../assets/sound/bg.wav');
+export const bg_02 = require('../assets/sound/bg_02.wav');

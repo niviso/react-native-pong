@@ -17,13 +17,14 @@ const AppProvider = (props) => {
         },
         size: {
           width: 25,
-          height: 200
+          height: 150
         },
         directionVector: {
           x: 0,
           y: 0
         }
       },
+      points: 0
     },
     player2: {
       transform: {
@@ -33,13 +34,14 @@ const AppProvider = (props) => {
         },
         size: {
           width: 25,
-          height: 200
+          height: 150
         },
         directionVector: {
           x: 0,
           y: 0
         }
       },
+      points: 0
     },
     ball: {
       transform: {
@@ -56,7 +58,8 @@ const AppProvider = (props) => {
           y: 0.5
         }
       },
-      colliding: false
+      colliding: false,
+      dead: false
     }
   });
 

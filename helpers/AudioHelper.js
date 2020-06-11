@@ -4,28 +4,24 @@ import { Audio } from 'expo-av';
 const AudioHelper = {
     list: [],
     muted: false,
-    isInList: function(file){
-      return this.list.findIndex(file) === 1;
-    },
-    init: async function(file,fileName,volume,looping,pitch){
+    init: async function(props){
+      const {file,name,volume,pitch,looping,audioPlay} = props;
       let newAudio =  new Audio.Sound();
 
-      this.list[fileName] = {audio: newAudio, file: file};
+      this.list[name] = newAudio;
       try{
-      await Audio.setIsEnabledAsync(true);
-      await this.list[fileName].audio.loadAsync(this.list[fileName].file);
-      await this.list[fileName].audio.playAsync();
+      await this.list[name].loadAsync(file);
       if(volume){
-        await this.list[fileName].audio.setVolumeAsync(volume);
+        await this.list[name].setVolumeAsync(volume);
       }
       if(looping){
-        this.list[fileName].audio.setIsLoopingAsync(true);
-      }
-      if(this.muted){
-        this.mute(fileName);
+        this.list[name].setIsLoopingAsync(true);
       }
       if(pitch){
-        this.list[fileName].audio.setRateAsync(pitch,true,1);
+        this.list[name].setRateAsync(pitch,true,1);
+      }
+      if(audioPlay){
+        this.play(name);
       }
 
     } catch(e){
@@ -51,18 +47,12 @@ const AudioHelper = {
         this.unMute(index.file);
       });
     },
-    findIndex: function(file){
-      return this.list.findIndex(file);
-    },
-    play: async function(file,loop=false,volume=1){
+    play: async function(file,pitch){
       try {
-      if(!this.list[file]){
-        this.init(file,volume,loop);
-      } else {
-        await this.list[file].audio.playAsync();
-      }
+        await this.list[file].setPositionAsync(0);
+        await this.list[file].playAsync();
       } catch(e){
-          console.log("No bueno",file.toString());
+          console.log(e);
       }
     },
     pause: async function(file){
