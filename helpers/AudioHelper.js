@@ -4,6 +4,7 @@ import { Audio } from 'expo-av';
 const AudioHelper = {
     list: [],
     muted: false,
+    time : 0,
     init: async function(props){
       const {file,name,volume,pitch,loop,autoPlay} = props;
       if(this.list[name]){
@@ -14,7 +15,7 @@ const AudioHelper = {
       this.list[name] = newAudio;
       try{
       await this.list[name].loadAsync(file);
-      if(volume){
+      /*if(volume){
         await this.list[name].setVolumeAsync(volume);
       }
       if(looping){
@@ -25,10 +26,10 @@ const AudioHelper = {
       }
       if(autoPlay){
         this.play(name);
-      }
+      }*/
 
     } catch(e){
-        //console.log("No bueno",file.toString());
+        console.log(e);
     }
 
     },
@@ -51,12 +52,12 @@ const AudioHelper = {
       });
     },
     play: async function(file,pitch){
-      try {
-        await this.list[file].setPositionAsync(0);
-        await this.list[file].playAsync();
-      } catch(e){
-          console.log(e);
-      }
+        try {
+          await this.list[file].setPositionAsync(0);
+          await this.list[file].playAsync();
+        } catch(e){
+            console.log(e);
+        }
     },
     pause: async function(file){
       await this.list[file].pauseAsync();

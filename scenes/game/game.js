@@ -7,6 +7,7 @@ import AudioHelper from '../../helpers/AudioHelper';
 import Ball from '../../components/ball/ball';
 import Player from '../../components/player/player';
 import Engine from '../../helpers/engine';
+import { Emitter } from 'react-native-particles';
 
 
 
@@ -15,21 +16,19 @@ export default function Game(props) {
   const [state,setState] = useContext(AppContext);
   const requestRef = React.useRef();
   const previousTimeRef = React.useRef();
-  const [count, setCount] = React.useState(0)
 
   const animate = time => {
 
-    if (AppState.currentState.match(/inactive|background/)) {
-      console.log("TEST");
-
-      UpdateSceen('pause');
-    }
-
     if (previousTimeRef.current != undefined) {
-      const deltaTime = time - previousTimeRef.current;
-
+      const deltaTime = Math.abs(time - previousTimeRef.current);
       var tmpState = Engine.getNewPosition(state);
-
+      if(tmpState.ball.colliding){
+        if(Math.abs(tmpState.ball.collidingTimeStamp-time) > 250){
+        AudioHelper.play("hit1");
+        tmpState.ball.colliding = false;
+        }
+        tmpState.ball.collidingTimeStamp = time;
+      }
       tmpState.ball.transform.position.x += state.ball.transform.directionVector.x * Engine.speed;
       tmpState.ball.transform.position.y += state.ball.transform.directionVector.y * Engine.speed;
 
@@ -93,6 +92,9 @@ export default function Game(props) {
     if(state.player1.points > 1 ||state.player2.points > 1){
       UpdateSceen("start");
     }
+    if (AppState.currentState.match(/inactive|background/)) {
+      UpdateSceen('pause');
+    }
       requestRef.current = requestAnimationFrame(animate);
       return () => cancelAnimationFrame(requestRef.current);
   });
@@ -115,6 +117,7 @@ export default function Game(props) {
 
     <View style={{position:'absolute',top:0,left:0,width: '50%',height: '50%'}} onTouchStart={()=> Up()} onTouchEnd={() => Stop()}></View>
     <View style={{position:'absolute',top:'50%',left:0,width: '50%',height: '50%'}} onTouchStart={()=> Down()} onTouchEnd={() => Stop()}></View>
+
 
     </View>
   );

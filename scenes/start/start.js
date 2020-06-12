@@ -4,7 +4,6 @@ import { Text, View,Image,TouchableOpacity } from 'react-native';
 import AudioHelper from '../../helpers/AudioHelper';
 import {confirm} from '../../helpers/sounds';
 import { SimpleAnimation } from 'react-native-simple-animations';
-import { Emitter } from 'react-native-particles';
 import Engine from '../../helpers/engine';
 export default function Start(props) {
   const {UpdateSceen} = props;

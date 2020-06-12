@@ -42,17 +42,24 @@ const Engine = {
 
       if(collidingWithCharacter){
         tmpState.ball.transform.directionVector.x = 1;
+        tmpState.ball.transform.position.x = tmpState.player1.transform.position.x + tmpState.player1.transform.size.width;
       }
       if(collidingWithCharacter_02){
         tmpState.ball.transform.directionVector.x = -1;
+        tmpState.ball.transform.position.x = tmpState.player2.transform.position.x - tmpState.ball.transform.size.width;
+
       }
 
 
     if(collisionTop){
       tmpState.ball.transform.directionVector.y = 1;
+      //tmpState.ball.transform.position.y = 0;
+
     }
     if(collisionBottom){
       tmpState.ball.transform.directionVector.y = -1;
+      //tmpState.ball.transform.position.y = this.screenHeight - tmpState.ball.transform.size.height;
+
     }
 
     if(collisionRight || collisionLeft){
