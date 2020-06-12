@@ -20,6 +20,10 @@ export default function Select(props) {
   var tmpState = JSON.parse(JSON.stringify(state));
   tmpState.player1.points = 0;
   tmpState.player2.points = 0;
+
+  tmpState.ball.transform.position.x = (Engine.screenWidth/2)-(tmpState.ball.transform.size.width/2);
+  tmpState.ball.transform.position.y = (Engine.screenHeight/2)-(tmpState.ball.transform.size.height/2);
+
   setState(tmpState);
 },[]);
   return (

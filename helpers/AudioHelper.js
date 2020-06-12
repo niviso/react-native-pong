@@ -15,10 +15,10 @@ const AudioHelper = {
       this.list[name] = newAudio;
       try{
       await this.list[name].loadAsync(file);
-      /*if(volume){
+      if(volume){
         await this.list[name].setVolumeAsync(volume);
       }
-      if(looping){
+      if(loop){
         this.list[name].setIsLoopingAsync(true);
       }
       if(pitch){
@@ -26,7 +26,7 @@ const AudioHelper = {
       }
       if(autoPlay){
         this.play(name);
-      }*/
+      }
 
     } catch(e){
         console.log(e);
@@ -52,6 +52,10 @@ const AudioHelper = {
       });
     },
     play: async function(file,pitch){
+        if(!this.list[file]){
+          console.log(file,"file does not exist");
+          return;
+        }
         try {
           await this.list[file].setPositionAsync(0);
           await this.list[file].playAsync();

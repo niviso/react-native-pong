@@ -46,7 +46,7 @@ const AppProvider = (props) => {
     ball: {
       transform: {
         position: {
-          x: 1,
+          x: 0,
           y: 0
         },
         size: {

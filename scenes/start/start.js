@@ -7,6 +7,7 @@ import { SimpleAnimation } from 'react-native-simple-animations';
 import Engine from '../../helpers/engine';
 export default function Start(props) {
   const {UpdateSceen} = props;
+  AudioHelper.play("menu-music");
 
 
 /*  <Emitter
@@ -26,7 +27,6 @@ export default function Start(props) {
   </Emitter>
 
   */
-
   return (
 
     <TouchableOpacity onPress={() => UpdateSceen('select')} style={Styles.Wrapper}>

@@ -8,23 +8,37 @@ import Ball from '../../components/ball/ball';
 import Player from '../../components/player/player';
 import Engine from '../../helpers/engine';
 import { Emitter } from 'react-native-particles';
+import { SimpleAnimation } from 'react-native-simple-animations';
 
 
 
 export default function Game(props) {
+
   const {UpdateSceen} = props;
   const [state,setState] = useContext(AppContext);
   const requestRef = React.useRef();
   const previousTimeRef = React.useRef();
+  const [startupTimer,setstartupTimer] = useState(30);
 
+  if(startupTimer == 30){
+    AudioHelper.play("countdown");
+  }
   const animate = time => {
 
     if (previousTimeRef.current != undefined) {
       const deltaTime = Math.abs(time - previousTimeRef.current);
+
+      if(startupTimer <= 0){
       var tmpState = Engine.getNewPosition(state);
       if(tmpState.ball.colliding){
-        if(Math.abs(tmpState.ball.collidingTimeStamp-time) > 250){
-        AudioHelper.play("hit1");
+        if(Math.abs(tmpState.ball.collidingTimeStamp-time) > 100){
+        if(tmpState.ball.collisionTarget == 'player1'){
+          AudioHelper.play("hit2");
+        } else if(tmpState.ball.collisionTarget == 'player2'){
+          AudioHelper.play("hit3");
+        } else {
+          AudioHelper.play("hit1");
+        }
         tmpState.ball.colliding = false;
         }
         tmpState.ball.collidingTimeStamp = time;
@@ -32,11 +46,8 @@ export default function Game(props) {
       tmpState.ball.transform.position.x += state.ball.transform.directionVector.x * Engine.speed;
       tmpState.ball.transform.position.y += state.ball.transform.directionVector.y * Engine.speed;
 
-
-
-
-      tmpState.player2.transform.position.y = tmpState.ball.transform.position.y - 100;
       tmpState.player1.transform.position.y += state.player1.transform.directionVector.y * Engine.speed;
+      tmpState.player2.transform.position.y += state.player2.transform.directionVector.y * Engine.speed;
 
 
 
@@ -55,6 +66,10 @@ export default function Game(props) {
 
 
       setState(tmpState);
+    } else {
+      const NewValue = (startupTimer - Math.round(deltaTime) * 0.01) % 100;
+      setstartupTimer(NewValue);
+    }
     }
     previousTimeRef.current = time;
     requestRef.current = requestAnimationFrame(animate);
@@ -62,24 +77,34 @@ export default function Game(props) {
 
 
 
-  const Up = () => {
+  const Up = (player1) => {
     var tmpState = JSON.parse(JSON.stringify(state));
-    tmpState.player1.transform.directionVector.y -= 1;
+    if(player1){
+      tmpState.player1.transform.directionVector.y = -1;
+    } else {
+      tmpState.player2.transform.directionVector.y = -1;
+    }
     setState(tmpState);
 
   }
 
-  const Down = () => {
+  const Down = (player1) => {
     var tmpState = JSON.parse(JSON.stringify(state));
-    tmpState.player1.transform.directionVector.y = 1;
-    setState(tmpState);
+    if(player1){
+      tmpState.player1.transform.directionVector.y = 1;
+    } else {
+      tmpState.player2.transform.directionVector.y = 1;
+    }    setState(tmpState);
 
   }
 
-  const Stop = () => {
+  const Stop = (player1) => {
     var tmpState = JSON.parse(JSON.stringify(state));
-    tmpState.player1.transform.directionVector.y = 0;
-    setState(tmpState);
+    if(player1){
+      tmpState.player1.transform.directionVector.y = 0;
+    } else {
+      tmpState.player2.transform.directionVector.y = 0;
+    }    setState(tmpState);
 
   }
 
@@ -89,7 +114,7 @@ export default function Game(props) {
   return rand;
 }
   useEffect(() => {
-    if(state.player1.points > 1 ||state.player2.points > 1){
+    if(state.player1.points >= 5 ||state.player2.points >= 5){
       UpdateSceen("start");
     }
     if (AppState.currentState.match(/inactive|background/)) {
@@ -115,10 +140,21 @@ export default function Game(props) {
 
     </View>
 
-    <View style={{position:'absolute',top:0,left:0,width: '50%',height: '50%'}} onTouchStart={()=> Up()} onTouchEnd={() => Stop()}></View>
-    <View style={{position:'absolute',top:'50%',left:0,width: '50%',height: '50%'}} onTouchStart={()=> Down()} onTouchEnd={() => Stop()}></View>
+    <View style={{position:'absolute',top:0,left:0,width: '50%',height: '50%'}} onTouchStart={()=> Up(true)} onTouchEnd={() => Stop(true)}></View>
+    <View style={{position:'absolute',top:'50%',left:0,width: '50%',height: '50%'}} onTouchStart={()=> Down(true)} onTouchEnd={() => Stop(true)}></View>
 
-
+    <View style={{position:'absolute',top:0,left:'50%',width: '50%',height: '50%'}} onTouchStart={()=> Up()} onTouchEnd={() => Stop()}></View>
+    <View style={{position:'absolute',top:'50%',left:'50%',width: '50%',height: '50%'}} onTouchStart={()=> Down()} onTouchEnd={() => Stop()}></View>
+    {startupTimer > 0 && (
+    <View style={Styles.Startup}>
+      <SimpleAnimation delay={0} duration={1000} fade staticType='bounce'>
+      <Text style={Styles.StartupTimer1}>Player 1{"\n"}{(startupTimer.toFixed(0)*0.1).toFixed(0)}</Text>
+      </SimpleAnimation>
+      <SimpleAnimation  delay={100} duration={1000} fade staticType='bounce'>
+      <Text style={Styles.StartupTimer2}>Player 2{"\n"}{(startupTimer.toFixed(0)*0.1).toFixed(0)}</Text>
+      </SimpleAnimation>
+    </View>
+    )}
     </View>
   );
 }

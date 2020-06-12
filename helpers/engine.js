@@ -43,10 +43,13 @@ const Engine = {
       if(collidingWithCharacter){
         tmpState.ball.transform.directionVector.x = 1;
         tmpState.ball.transform.position.x = tmpState.player1.transform.position.x + tmpState.player1.transform.size.width;
+        tmpState.ball.collisionTarget = "player1";
+
       }
       if(collidingWithCharacter_02){
         tmpState.ball.transform.directionVector.x = -1;
         tmpState.ball.transform.position.x = tmpState.player2.transform.position.x - tmpState.ball.transform.size.width;
+        tmpState.ball.collisionTarget = "player2";
 
       }
 
@@ -54,11 +57,14 @@ const Engine = {
     if(collisionTop){
       tmpState.ball.transform.directionVector.y = 1;
       //tmpState.ball.transform.position.y = 0;
+      tmpState.ball.collisionTarget = "top";
 
     }
     if(collisionBottom){
       tmpState.ball.transform.directionVector.y = -1;
       //tmpState.ball.transform.position.y = this.screenHeight - tmpState.ball.transform.size.height;
+      tmpState.ball.collisionTarget = "bottom";
+
 
     }
 
