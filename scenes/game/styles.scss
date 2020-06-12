@@ -28,3 +28,16 @@
 .ResetBtnText{
   font-size: 20px;
 }
+
+.ScorePlayerOne{
+  fontSize: 100;
+  font-size: 100px;
+  opacity: 0.1;
+  transform: rotate(90deg);
+}
+.ScorePlayerTwo{
+  fontSize: 100;
+  font-size: 100px;
+  opacity: 0.1;
+  transform: rotate(-90deg);
+}

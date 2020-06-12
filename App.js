@@ -1,7 +1,8 @@
 import React,{useState} from 'react';
 import {AppProvider} from './context/appContext';
-import Game from './views/game/game';
-import Start from './views/start/start';
+import Game from './scenes/game/game';
+import Start from './scenes/start/start';
+import Select from './scenes/select/select';
 
 import {menu,impact,bg} from './helpers/sounds';
 import AudioHelper from './helpers/AudioHelper';
@@ -26,6 +27,7 @@ export default function App() {
   return (
     <AppProvider>
     {sceen == 'start' && <Start UpdateSceen={UpdateSceen}/> }
+    {sceen == 'select' && <Select  UpdateSceen={UpdateSceen}/> }
     {sceen == 'game' && <Game  UpdateSceen={UpdateSceen}/> }
 
     </AppProvider>

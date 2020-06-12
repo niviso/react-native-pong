@@ -51,7 +51,7 @@ export default function Game(props) {
       }
 
       if(tmpState.player1.points > 1 ||tmpState.player2.points > 1){
-        UpdateSceen("start");
+        //UpdateSceen("start");
       }
 
       setState(tmpState);
@@ -103,8 +103,10 @@ export default function Game(props) {
     <View style={{position: 'absolute',width: state.player2.transform.size.width, height: state.player2.transform.size.height,backgroundColor: 'black',left:state.player2.transform.position.x, top: state.player2.transform.position.y}}>
     </View>
 
-        <View style={{position: 'absolute',width: Engine.screenWidth, height: Engine.screenHeight,display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
-    <Text style={{fontSize: 100,opacity: 0.1}}>{state.player1.points} | {state.player2.points}</Text>
+        <View onTouchStart={() => UpdateSceen('start')} style={{position: 'absolute',width: Engine.screenWidth, height: Engine.screenHeight,display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
+    <Text style={Styles.ScorePlayerOne}>{state.player1.points} -</Text>
+    <Text style={Styles.ScorePlayerTwo}>{state.player2.points}</Text>
+
     </View>
 
     <View style={{position:'absolute',top:0,left:0,width: '50%',height: '50%'}} onTouchStart={()=> Up()} onTouchEnd={() => Stop()}></View>
