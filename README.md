@@ -6,8 +6,8 @@ Built using requestAnimationFrame, react-hooks and expo.io.
 You can play **1 vs. AI** or **1 vs. 1**.
 
 
+![Vue avant](https://user-images.githubusercontent.com/20905714/84552542-78259680-ad11-11ea-8ec4-a358a4a3c9a0.png)
 
-  
 
 
 
