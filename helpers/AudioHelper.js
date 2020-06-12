@@ -5,9 +5,9 @@ const AudioHelper = {
     list: [],
     muted: false,
     init: async function(props){
-      const {file,name,volume,pitch,looping,autoPlay} = props;
+      const {file,name,volume,pitch,loop,autoPlay} = props;
       if(this.list[name]){
-        return; 
+        return;
       }
       let newAudio =  new Audio.Sound();
 
@@ -35,19 +35,19 @@ const AudioHelper = {
     muteAll: async function(){
       this.muted = true;
       this.list.map(index=>{
-        this.mute(index.file);
+        this.mute(index);
       });
     },
     mute: async function(file){
-         this.list[file].audio.setIsMutedAsync(true);
+         this.list[file].setIsMutedAsync(true);
     },
     unMute: async function(file){
-         this.list[file].audio.setIsMutedAsync(false);
+         this.list[file].setIsMutedAsync(false);
     },
     unMuteAll: function(){
       this.muted = false;
       this.list.map(index=>{
-        this.unMute(index.file);
+        this.unMute(index);
       });
     },
     play: async function(file,pitch){
@@ -59,19 +59,19 @@ const AudioHelper = {
       }
     },
     pause: async function(file){
-      await this.list[file].audio.pauseAsync();
+      await this.list[file].pauseAsync();
     },
     stop: async function(file){
       try {
-        await this.list[file].audio.stopAsync();
+        await this.list[file].stopAsync();
       } catch(e){
           //console.log("No bueno",file.toString());
       }
     },
     stopAll: async function(){
-      this.list.map(index=>{
-        this.stop(index.file);
-      });
+      this.list.forEach(async function(sound) {
+        this.stop(sound);
+      })
     }
 
 }

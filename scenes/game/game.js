@@ -1,6 +1,6 @@
 import React,{useContext,useEffect,useState} from 'react';
 import Styles from './styles.scss';
-import { Text, View,Image,TouchableOpacity,Dimensions } from 'react-native';
+import { Text, View,Image,TouchableOpacity,Dimensions,AppState } from 'react-native';
 import {AppContext} from '../../context/appContext';
 import {impact} from '../../helpers/sounds';
 import AudioHelper from '../../helpers/AudioHelper';
@@ -8,7 +8,6 @@ import Ball from '../../components/ball/ball';
 import Player from '../../components/player/player';
 import Engine from '../../helpers/engine';
 
-AudioHelper.play("bg");
 
 
 export default function Game(props) {
@@ -19,12 +18,17 @@ export default function Game(props) {
   const [count, setCount] = React.useState(0)
 
   const animate = time => {
+
+    if (AppState.currentState.match(/inactive|background/)) {
+      console.log("TEST");
+
+      UpdateSceen('pause');
+    }
+
     if (previousTimeRef.current != undefined) {
       const deltaTime = time - previousTimeRef.current;
 
       var tmpState = Engine.getNewPosition(state);
-
-
 
       tmpState.ball.transform.position.x += state.ball.transform.directionVector.x * Engine.speed;
       tmpState.ball.transform.position.y += state.ball.transform.directionVector.y * Engine.speed;
@@ -50,9 +54,6 @@ export default function Game(props) {
         tmpState.player2.transform.position.y = Engine.screenHeight - tmpState.player2.transform.size.height;
       }
 
-      if(tmpState.player1.points > 1 ||tmpState.player2.points > 1){
-        //UpdateSceen("start");
-      }
 
       setState(tmpState);
     }
@@ -89,7 +90,9 @@ export default function Game(props) {
   return rand;
 }
   useEffect(() => {
-
+    if(state.player1.points > 1 ||state.player2.points > 1){
+      UpdateSceen("start");
+    }
       requestRef.current = requestAnimationFrame(animate);
       return () => cancelAnimationFrame(requestRef.current);
   });
@@ -103,8 +106,9 @@ export default function Game(props) {
     <View style={{position: 'absolute',width: state.player2.transform.size.width, height: state.player2.transform.size.height,backgroundColor: 'black',left:state.player2.transform.position.x, top: state.player2.transform.position.y}}>
     </View>
 
-        <View onTouchStart={() => UpdateSceen('start')} style={{position: 'absolute',width: Engine.screenWidth, height: Engine.screenHeight,display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
-    <Text style={Styles.ScorePlayerOne}>{state.player1.points} -</Text>
+        <View style={{position: 'absolute',width: Engine.screenWidth, height: Engine.screenHeight,display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
+    <Text style={Styles.ScorePlayerOne}>{state.player1.points}</Text>
+    <View style={Styles.ScoreSeparator}></View>
     <Text style={Styles.ScorePlayerTwo}>{state.player2.points}</Text>
 
     </View>

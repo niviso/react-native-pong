@@ -13,10 +13,9 @@
 }
 
 .Header{
-  font-size: 50px;
+  font-size: 30px;
   text-transform: uppercase;
   letter-spacing: 5px;
-  color: black;
   font-weight: bold;
   margin: auto auto;
 }
@@ -25,6 +24,12 @@
   width: 5px;
   height: 100%;
   background: black;
+}
 
-
+.Flip{
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  transform: rotate(90deg);
 }

@@ -17,7 +17,7 @@ const AppProvider = (props) => {
         },
         size: {
           width: 25,
-          height: 150
+          height: 125
         },
         directionVector: {
           x: 0,
@@ -34,7 +34,7 @@ const AppProvider = (props) => {
         },
         size: {
           width: 25,
-          height: 150
+          height: 125
         },
         directionVector: {
           x: 0,
