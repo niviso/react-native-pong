@@ -12,11 +12,14 @@ export default function Select(props) {
   const {UpdateSceen} = props;
 
   const [state,setState] = useContext(AppContext);
-  const [steps,setStep] = useState([]);
-  const [currentStep,setStep] = useState(0);
-  const Select = () => {
-      UpdateSceen('game');
-  }
+
+  const [currentStep,setCurrentstep] = useState(0);
+
+  const [settings,setSettings] = useState({
+    players: 1,
+    mode: 'normal',
+  })
+
   useEffect(()=>{
   var tmpState = JSON.parse(JSON.stringify(state));
   tmpState.player1.points = 0;
@@ -31,35 +34,66 @@ export default function Select(props) {
   setState(tmpState);
 },[]);
 
-const UpdateStep = (index) => {
-  if(index > step)
+const GoToStep = (index,setting) => {
+
+    setCurrentstep(index);
+    AudioHelper.play("confirm");
+    setSettings({...settings,...setting})
+}
+
+function getStep(){
+
+  if(currentStep == 0){
+    return (
+      <View style={Styles.Wrapper}>
+
+
+      <TouchableOpacity onPress={() => GoToStep(1,{players: 1})} style={{...Styles.BgBlack,...Styles.Row}}>
+      <SimpleAnimation animateOnUpdate delay={0} duration={2000} fade staticType='bounce' style={Styles.Box}>
+
+      <Text style={{color:'white',...Styles.Header}}>1 Player</Text>
+      </SimpleAnimation>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => GoToStep(1,{players: 2})} style={Styles.Row}>
+      <SimpleAnimation animateOnUpdate delay={100} duration={2000} fade staticType='bounce' style={Styles.Box}>
+
+      <Text style={{color:'black',...Styles.Header,...Styles.Deg90}}>2 Players</Text>
+      </SimpleAnimation>
+      </TouchableOpacity>
+
+
+      </View>
+    )
+  }
+  else if(currentStep == 1){
+    return(
+    <View style={Styles.Wrapper}>
+
+
+    <TouchableOpacity onPress={() => GoToStep(0)} style={Styles.Row}>
+    <SimpleAnimation animateOnUpdate delay={0} duration={2000} fade staticType='bounce' style={Styles.Box}>
+
+    <Text style={{color:'black',...Styles.Header,...settings.players == 2 ? Styles.Deg90 : null}}>Random mode</Text>
+    </SimpleAnimation>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => GoToStep(0)} style={{...Styles.BgBlack,...Styles.Row}}>
+    <SimpleAnimation animateOnUpdate delay={100} duration={2000} fade staticType='bounce' style={Styles.Box}>
+
+    <Text style={{color:'white',...Styles.Header,...settings.players == 2 ? Styles.Deg270 : null}}>Normal mode</Text>
+    </SimpleAnimation>
+    </TouchableOpacity>
+
+
+    </View>
+  )
+  }
 }
 
 
-const step_01 = (
-  <TouchableOpacity onPress={() => Select()} style={Styles.Wrapper}>
-
-
-  <View style={{backgroundColor: 'black',width: '50%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-  <SimpleAnimation delay={0} duration={2000} fade staticType='bounce' style={Styles.Box}>
-
-  <Text style={{color:'white',...Styles.Header}}>1 Player</Text>
-  </SimpleAnimation>
-  </View>
-  <View style={Styles.Flip}>
-  <SimpleAnimation delay={50} duration={2000} fade staticType='bounce' style={Styles.Box}>
-
-  <Text style={{color:'black',...Styles.Header}}>2 Players</Text>
-  </SimpleAnimation>
-  </View>
-
-
-  </TouchableOpacity>
-)
 
   return (
     <>
-    {step_01}
+    {getStep()}
     </>
 
   );

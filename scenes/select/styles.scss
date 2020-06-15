@@ -8,7 +8,7 @@
 }
 
 .Box{
-  width: 50%;
+  width: 100%;
   height: 100%;
 }
 
@@ -18,6 +18,7 @@
   letter-spacing: 5px;
   font-weight: bold;
   margin: auto auto;
+  text-align: center;
 }
 
 .Spacer{
@@ -26,10 +27,18 @@
   background: black;
 }
 
-.Flip{
+.Row{
   width: 50%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
+}
+
+.BgBlack{
+  background-color: black;
+}
+
+.Deg90{
   transform: rotate(90deg);
+}
+
+.Deg270{
+  transform: rotate(270deg);
 }
