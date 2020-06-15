@@ -1,6 +1,6 @@
 import React,{useContext,useEffect,useState} from 'react';
 import Styles from './styles.scss';
-import { Text, View,Image,TouchableOpacity,Dimensions,AppState } from 'react-native';
+import { Text, View,Image,TouchableOpacity,Dimensions,AppState,SafeAreaView } from 'react-native';
 import {AppContext} from '../../context/appContext';
 import {impact} from '../../helpers/sounds';
 import AudioHelper from '../../helpers/AudioHelper';
@@ -9,7 +9,6 @@ import Player from '../../components/player/player';
 import Engine from '../../helpers/engine';
 import { Emitter } from 'react-native-particles';
 import { SimpleAnimation } from 'react-native-simple-animations';
-
 
 
 export default function Game(props) {
@@ -115,7 +114,7 @@ export default function Game(props) {
 }
   useEffect(() => {
     if(state.player1.points >= 5 ||state.player2.points >= 5){
-      UpdateSceen("start");
+      UpdateSceen("ending");
     }
     if (AppState.currentState.match(/inactive|background/)) {
       UpdateSceen('pause');
@@ -127,10 +126,10 @@ export default function Game(props) {
   return (
     <View style={{width: Engine.screenWidth, height: Engine.screenHeight}} onTo>
     <Ball transform={state.ball.transform}/>
-    <View style={{position: 'absolute',width: state.player1.transform.size.width, height: state.player1.transform.size.height,backgroundColor: 'black',left: state.player1.transform.position.x, top: state.player1.transform.position.y}}>
+    <View style={{position: 'absolute',width: state.player1.transform.size.width, height: state.player1.transform.size.height,backgroundColor: state.theme.primary,left: state.player1.transform.position.x, top: state.player1.transform.position.y}}>
     </View>
 
-    <View style={{position: 'absolute',width: state.player2.transform.size.width, height: state.player2.transform.size.height,backgroundColor: 'black',left:state.player2.transform.position.x, top: state.player2.transform.position.y}}>
+    <View style={{position: 'absolute',width: state.player2.transform.size.width, height: state.player2.transform.size.height,backgroundColor: state.theme.secondary,left:state.player2.transform.position.x, top: state.player2.transform.position.y}}>
     </View>
 
         <View style={{position: 'absolute',width: Engine.screenWidth, height: Engine.screenHeight,display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
@@ -142,7 +141,6 @@ export default function Game(props) {
 
     <View style={{position:'absolute',top:0,left:0,width: '50%',height: '50%'}} onTouchStart={()=> Up(true)} onTouchEnd={() => Stop(true)}></View>
     <View style={{position:'absolute',top:'50%',left:0,width: '50%',height: '50%'}} onTouchStart={()=> Down(true)} onTouchEnd={() => Stop(true)}></View>
-
     <View style={{position:'absolute',top:0,left:'50%',width: '50%',height: '50%'}} onTouchStart={()=> Up()} onTouchEnd={() => Stop()}></View>
     <View style={{position:'absolute',top:'50%',left:'50%',width: '50%',height: '50%'}} onTouchStart={()=> Down()} onTouchEnd={() => Stop()}></View>
     {startupTimer > 0 && (

@@ -4,6 +4,7 @@ import Game from './scenes/game/game';
 import Start from './scenes/start/start';
 import Select from './scenes/select/select';
 import Pause from './scenes/pause/pause';
+import Ending from './scenes/ending/ending';
 
 import {impact,bg,bg_02,confirm,boop,countdown} from './helpers/sounds';
 import AudioHelper from './helpers/AudioHelper';
@@ -43,6 +44,7 @@ export default function App() {
     {sceen == 'select' && <Select  UpdateSceen={UpdateSceen}/> }
     {sceen == 'game' && <Game  UpdateSceen={UpdateSceen}/> }
     {sceen == 'pause' && <Pause  UpdateSceen={UpdateSceen}/> }
+    {sceen == 'ending' && <Ending  UpdateSceen={UpdateSceen}/> }
 
     </AppProvider>
   );

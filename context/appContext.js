@@ -60,6 +60,12 @@ const AppProvider = (props) => {
       },
       colliding: false,
       dead: false
+    },
+    theme:{
+      primary: "#002a55",
+      secondary: "#80c565",
+      neutral: "#000000",
+      contrast: "#ffffff"
     }
   });
 

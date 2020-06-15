@@ -1,0 +1,25 @@
+.Wrapper{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Header{
+  font-size: 75px;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  color: black;
+  font-weight: bold;
+}
+
+.Press{
+  font-size: 15px;
+  text-transform: uppercase;
+  margin-left: -5px;
+  color: black;
+
+
+}
