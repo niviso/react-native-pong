@@ -24,7 +24,7 @@ export default function App() {
 
   const screenWidth = Math.round(Dimensions.get('window').width);
   const screenHeight = Math.round(Dimensions.get('window').height);
-  const [sceen,setSceen] = useState('start');
+  const [sceen,setSceen] = useState('game');
   Engine.init({screenWidth: screenWidth,screenHeight: screenHeight});
 
   const UpdateSceen = (sceen) => {
