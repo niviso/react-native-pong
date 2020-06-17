@@ -8,9 +8,9 @@ import Ball from '../../components/ball/ball';
 import Player from '../../components/player/player';
 import Engine from '../../helpers/engine';
 import { Emitter } from 'react-native-particles';
-import { SimpleAnimation } from 'react-native-simple-animations';
 import Controllers from '../../components/controllers/controllers';
 import StartupTimer from '../../components/startup-timer/startup-timer';
+import Points from '../../components/points/points';
 
 export default function Game(props) {
 
@@ -70,12 +70,6 @@ export default function Game(props) {
   }
 
 
-
-  function random(min, max) {
-  const rand = (min + Math.random() * (max - min)).toFixed(2);;
-  console.log(rand);
-  return rand;
-}
   useEffect(() => {
     if(state.player1.points >= 5 ||state.player2.points >= 5){
       UpdateSceen("ending");
@@ -94,12 +88,8 @@ export default function Game(props) {
     <Player theme={state.theme} transform={state.player1.transform}/>
     <Player theme={state.theme} transform={state.player2.transform}/>
 
-    <View style={{position: 'absolute',width: Engine.screenWidth, height: Engine.screenHeight,display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
-      <Text style={Styles.ScorePlayerOne}>{state.player1.points}</Text>
-      <View style={Styles.ScoreSeparator}></View>
-      <Text style={Styles.ScorePlayerTwo}>{state.player2.points}</Text>
-    </View>
 
+    <Points player1Points={state.player1.points} player2Points={state.player2.points}/>
     <Controllers/>
 
     {paused && (

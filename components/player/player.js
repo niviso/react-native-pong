@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, } from 'react-native';
-import {AppContext} from '../../context/appContext';
 
 export default function Player(props) {
   const {transform,theme} = props;
