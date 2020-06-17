@@ -13,18 +13,18 @@ import { Dimensions } from 'react-native';
 
 export default function App() {
   AudioHelper.stopAll();
-  AudioHelper.init({file: impact,name:"hit1"});
+  AudioHelper.init({file: boop,name:"hit1",pitch: 0.5});
   AudioHelper.init({file: boop,name:"hit2",pitch: 1});
-  AudioHelper.init({file: boop,name:"hit3",pitch: 0.3});
+  AudioHelper.init({file: boop,name:"hit3",pitch: 0.8});
   AudioHelper.init({file: confirm,name:"confirm",volume: 0.5});
-  AudioHelper.init({file: bg,name:"menu-music",loop: true,autoPlay: true});
+  AudioHelper.init({file: bg,name:"menu-music",loop: true,autoPlay: true,volume: 0.5});
   AudioHelper.init({file: bg_02,name:"game-music",loop: true});
   AudioHelper.init({file: countdown,name:"countdown"});
 
 
   const screenWidth = Math.round(Dimensions.get('window').width);
   const screenHeight = Math.round(Dimensions.get('window').height);
-  const [sceen,setSceen] = useState('game');
+  const [sceen,setSceen] = useState('start');
   Engine.init({screenWidth: screenWidth,screenHeight: screenHeight});
 
   const UpdateSceen = (sceen) => {

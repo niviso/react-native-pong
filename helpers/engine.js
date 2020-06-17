@@ -19,7 +19,7 @@ const Engine = {
   var tmpState = JSON.parse(JSON.stringify(state));
 
   const collisionLeft = tmpState.ball.transform.position.x <= 0;
-  const collisionRight =  (tmpState.ball.transform.position.x+tmpState.ball.transform.size.width > this.screenWidth) && (tmpState.ball.transform.position.x < this.screenWidth);
+  const collisionRight =  tmpState.ball.transform.position.x+tmpState.ball.transform.size.width >= this.screenWidth;
   const collisionBottom = (tmpState.ball.transform.position.y+tmpState.ball.transform.size.height > this.screenHeight) && (tmpState.ball.transform.position.y < this.screenHeight);
   const collisionTop = tmpState.ball.transform.position.y < 0;
 

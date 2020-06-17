@@ -28,7 +28,7 @@ export default function Game(props) {
       if(!paused){
       var tmpState = Engine.getNewPosition(state);
       if(tmpState.ball.colliding){
-        if(Math.abs(tmpState.ball.collidingTimeStamp-time) > 100){
+        if(Math.abs(tmpState.ball.collidingTimeStamp-time) > 30){
         if(tmpState.ball.collisionTarget == 'player1'){
           AudioHelper.play("hit2");
         } else if(tmpState.ball.collisionTarget == 'player2'){
@@ -76,7 +76,6 @@ export default function Game(props) {
     }
     if (AppState.currentState.match(/inactive|background/)) {
       UpdateSceen('pause');
-      setPause(true);
     }
       requestRef.current = requestAnimationFrame(animate);
       return () => cancelAnimationFrame(requestRef.current);
@@ -85,8 +84,8 @@ export default function Game(props) {
   return (
     <View style={{width: Engine.screenWidth, height: Engine.screenHeight}} onTo>
     <Ball transform={state.ball.transform}/>
-    <Player theme={state.theme} transform={state.player1.transform}/>
-    <Player theme={state.theme} transform={state.player2.transform}/>
+    <Player color={state.theme.primary} transform={state.player1.transform}/>
+    <Player color={state.theme.secondary} transform={state.player2.transform}/>
 
 
     <Points player1Points={state.player1.points} player2Points={state.player2.points}/>
