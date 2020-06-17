@@ -7,7 +7,7 @@ You can play **1 vs. AI** or **1 vs. 1**.
 
 
 
-  
+
 
 
 
@@ -16,7 +16,10 @@ You can play **1 vs. AI** or **1 vs. 1**.
 Background music from PlayOnLoop.com
 Licensed under Creative Commons by Attribution 4.0
 
-### Sound effects: 
+
+yellow by cyba (c) copyright 2019 Licensed under a Creative Commons Attribution Noncommercial  (3.0) license. http://dig.ccmixter.org/files/cyba/60166
+shadows by cyba (c) copyright 2019 Licensed under a Creative Commons Attribution Noncommercial  (3.0) license. http://dig.ccmixter.org/files/cyba/60095 
+### Sound effects:
 "Countdown" by ckvoiceover @ https://freesound.org/
 
 "Confirm" by InspectorJ @ https://freesound.org/

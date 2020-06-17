@@ -20,7 +20,7 @@ export default function App() {
   AudioHelper.init({file: bg,name:"menu-music",loop: true,autoPlay: true});
   AudioHelper.init({file: bg_02,name:"game-music",loop: true});
   AudioHelper.init({file: countdown,name:"countdown"});
-  
+
 
   const screenWidth = Math.round(Dimensions.get('window').width);
   const screenHeight = Math.round(Dimensions.get('window').height);
@@ -28,10 +28,6 @@ export default function App() {
   Engine.init({screenWidth: screenWidth,screenHeight: screenHeight});
 
   const UpdateSceen = (sceen) => {
-    AudioHelper.stop("menu-music");
-    AudioHelper.stop("game-music");
-
-
     AudioHelper.play("confirm");
     setSceen(sceen);
   }
