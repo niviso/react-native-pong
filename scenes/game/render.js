@@ -86,7 +86,7 @@ export default function Render(props) {
     <Player color={state.theme.primary} transform={state.player1.transform}/>
     <Player color={state.theme.secondary} transform={state.player2.transform}/>
 
-
+    <Text style={{fontSize: 20,position:'absolute',left: 0,top: 0}}>{JSON.stringify(state.settings)}</Text>
     <Points player1Points={state.player1.points} player2Points={state.player2.points}/>
 
     {paused && (

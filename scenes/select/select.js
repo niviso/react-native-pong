@@ -44,7 +44,7 @@ const GoToStep = (index,setting) => {
     setCurrentstep(index);
   } else {
     AudioHelper.stopAll();
-    setState({...state,...settings});
+    setState({...state,...{settings: settings}});
     UpdateSceen('game');
   }
 
