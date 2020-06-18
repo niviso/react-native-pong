@@ -1,15 +1,17 @@
 import React, { useState,useContext } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { MultiTouchView } from 'expo-multi-touch';
 import Engine from '../../helpers/engine';
 import {AppContext} from '../../context/appContext';
 
-const colors = ['red', 'blue'];
 export default function Controllers(props) {
   const [state,setState] = useContext(AppContext);
+  const [touchState,setTouchState] = useState({touches:{}});
 
-  const [touchState,setTouchState] = useState({touches:{}})
   const Up = (player1) => {
+    if((player1 && state.player1.transform.directionVector.y !== 0) || (!player1 && state.player2.transform.directionVector.y !== 0) ){
+      return;
+    }
     var tmpState = JSON.parse(JSON.stringify(state));
     if(player1){
       tmpState.player1.transform.directionVector.y = -1;
@@ -21,12 +23,18 @@ export default function Controllers(props) {
   }
 
   const Down = (player1) => {
+    if((player1 && state.player1.transform.directionVector.y != 0) || (!player1 && state.player2.transform.directionVector.y != 0) ){
+      return;
+    }
+
     var tmpState = JSON.parse(JSON.stringify(state));
     if(player1){
       tmpState.player1.transform.directionVector.y = 1;
     } else {
       tmpState.player2.transform.directionVector.y = 1;
-    }    setState(tmpState);
+    }
+    console.log("Set down");
+    setState(tmpState);
 
   }
 
@@ -41,33 +49,27 @@ export default function Controllers(props) {
   }
   const touchProps = {
     onTouchBegan: event => {
-      const { identifier } = event;
-
-      setTouchState(previous => ({
-        touches: {
-          ...previous.touches,
-          [identifier]: event,
-        },
-      }));
-
-    },
-    onTouchMoved: event => {
       const { identifier,pageY,pageX } = event;
-      if(pageY > (Engine.screenHeight/2)){
-        Down(pageX < (Engine.screenWidth/2));
+      const player1 = pageX > (Engine.screenWidth/2) ? 0 : 1; // true = player 1, false = player2
+      const direction = pageY > (Engine.screenHeight/2) ? 0 : 1; // true = up, false = down
+
+      if(direction){
+        Up(player1);
       } else {
-        Up(pageX < (Engine.screenWidth/2));
-      }
-      setTouchState(previous => ({
+        Down(player1);
+      }      setTouchState(previous => ({
         touches: {
           ...previous.touches,
-          [identifier]: event,
+          [identifier]: null,
         },
       }));
+
     },
     onTouchEnded: event => {
-      const { identifier, deltaX, deltaY, isTap } = event;
-      Stop();
+      const { identifier, deltaX, deltaY, isTap,pageX } = event;
+
+      const player1 = pageX > (Engine.screenWidth/2) ? 0 : 1; // true = player 1, false = player2
+      Stop(player1);
       setTouchState(previous => ({
         touches: {
           ...previous.touches,
@@ -76,7 +78,9 @@ export default function Controllers(props) {
       }));
     },
     onTouchCancelled: event => {
-      const { identifier, deltaX, deltaY, isTap } = event;
+      const { identifier, deltaX, deltaY, isTap,pageX } = event;
+      const player1 = pageX > (Engine.screenWidth/2) ? 0 : 1; // true = player 1, false = player2
+      Stop(player1);
       setTouchState(previous => ({
         touches: {
           ...previous.touches,
@@ -84,72 +88,16 @@ export default function Controllers(props) {
         },
       }));
     },
-    onTouchesBegan: () => {
-    },
-    onTouchesMoved: () => {},
-    onTouchesEnded: () => {
-    },
-    onTouchesCancelled: () => {
-    },
   };
 
 
     const { touches } = touchState;
     return (
-      <View style={{ flex: 1 }}>
-        <MultiTouchView style={{ flex: 1 }} {...touchProps}>
-          <View style={styles.container}>
+        <MultiTouchView {...touchProps} style={{position:'absolute',top:0,left:0,width: Engine.screenWidth,height: Engine.screenHeight}}>
 
-            {Object.values(touches).map((item, index) => {
-              if (!item) {
-                return null;
-              }
-
-              return (
-                <View
-                  key={index}
-                  style={[
-                    styles.touch,
-                    {
-                      transform: [
-                        { translateX: -TOUCH_SIZE / 2 },
-                        { translateY: -TOUCH_SIZE / 2 },
-                        { scale: 1 + (item.force || 0) * 2 },
-                      ],
-                      backgroundColor: item.pageX < (Engine.screenWidth/2) ? state.theme.primary : state.theme.secondary,
-                      top: item.pageY,
-                      left: item.pageX,
-                    },
-                  ]}
-                />
-              );
-            })}
-          </View>
         </MultiTouchView>
-      </View>
     );
 
 }
 
 const TOUCH_SIZE = 56;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  touch: {
-    position: 'absolute',
-    aspectRatio: 1,
-    width: TOUCH_SIZE,
-    borderRadius: TOUCH_SIZE / 2,
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#34495e',
-  },
-});
