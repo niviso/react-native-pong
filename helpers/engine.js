@@ -3,7 +3,7 @@
 const Engine = {
   screenWidth : null,
   screenHeight: null,
-  speed: 5,
+  speed: 1,
   initialized: false,
   init: function(props){
     const {screenWidth,screenHeight,speed=5} = props;
