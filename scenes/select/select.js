@@ -79,59 +79,18 @@ function getStep(){
     <View style={Styles.Wrapper}>
 
 
-    <TouchableOpacity onPress={() => GoToStep(2)} style={Styles.Row}>
+    <TouchableOpacity onPress={() => GoToStep(null,{mode:'heroic'})} style={Styles.Row}>
     <SimpleAnimation animateOnUpdate delay={0} duration={2000} fade staticType='bounce' style={Styles.Box}>
 
     <Text style={{color:'black',...Styles.Header,...settings.players == 2 ? Styles.Deg90 : null}}>Heroic mode</Text>
     </SimpleAnimation>
     </TouchableOpacity>
-    <TouchableOpacity onPress={() => GoToStep(2)} style={{...Styles.BgBlack,...Styles.Row}}>
+    <TouchableOpacity onPress={() => GoToStep(null,{mode:'normal'})} style={{...Styles.BgBlack,...Styles.Row}}>
     <SimpleAnimation animateOnUpdate delay={100} duration={2000} fade staticType='bounce' style={Styles.Box}>
 
     <Text style={{color:'white',...Styles.Header,...settings.players == 2 ? Styles.Deg270 : null}}>Normal mode</Text>
     </SimpleAnimation>
     </TouchableOpacity>
-
-
-    </View>
-  )
-  }
-  else if(currentStep == 2){
-    return(
-    <View style={Styles.Wrapper}>
-
-
-    <TouchableOpacity onPress={() => GoToStep(1)} style={Styles.Row}>
-    <SimpleAnimation animateOnUpdate delay={0} duration={2000} fade staticType='bounce' style={Styles.Box}>
-
-    <TouchableOpacity onPress={() => GoToStep(null,{playerOneSkill: 'Skill 1'})}>
-      <Text style={{color:'black',...Styles.Header,...settings.players == 2 ? Styles.Deg90 : null}}>SKILL 1</Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => GoToStep(null,{playerOneSkill: 'Skill 2'})}>
-      <Text style={{color:'black',...Styles.Header,...settings.players == 2 ? Styles.Deg90 : null}}>SKILL 2</Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => GoToStep(null,{playerOneSkill: 'Skill 2'})}>
-      <Text style={{color:'black',...Styles.Header,...settings.players == 2 ? Styles.Deg90 : null}}>SKILL 3</Text>
-    </TouchableOpacity>
-
-    </SimpleAnimation>
-    </TouchableOpacity>
-    <View style={{...Styles.BgBlack,...Styles.Row}}>
-    <SimpleAnimation animateOnUpdate delay={100} duration={2000} fade staticType='bounce' style={Styles.Box}>
-    <TouchableOpacity onPress={() => GoToStep(null,{playerOneSkill: 'Skill 1'})}>
-      <Text style={{color:'white',...Styles.Header,...settings.players == 2 ? Styles.Deg270 : null}}>SKILL 1</Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => GoToStep(null,{playerOneSkill: 'Skill 2'})}>
-      <Text style={{color:'white',...Styles.Header,...settings.players == 2 ? Styles.Deg270 : null}}>SKILL 2</Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => GoToStep(null,{playerOneSkill: 'Skill 2'})}>
-      <Text style={{color:'white',...Styles.Header,...settings.players == 2 ? Styles.Deg270 : null}}>SKILL 3</Text>
-    </TouchableOpacity>
-
-    </SimpleAnimation>
-    </View>
-
-
     </View>
   )
   }
