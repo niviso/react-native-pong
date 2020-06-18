@@ -12,12 +12,12 @@ import Render from './render';
 import Controllers from '../../components/controllers/controllers';
 
 export default function Game(props) {
-
+  const {UpdateSceen} = props;
 
 
   return (
     <View style={{width: Engine.screenWidth, height: Engine.screenHeight}}>
-    <Render/>
+    <Render UpdateSceen={UpdateSceen}/>
     <Controllers/>
 
     </View>

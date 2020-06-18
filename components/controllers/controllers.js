@@ -8,7 +8,7 @@ export default function Controllers(props) {
   const [state,setState] = useContext(AppContext);
 
   const Up = (player1) => {
-    if((player1 && state.player1.transform.directionVector.y != 0) || (!player1 && state.player2.transform.directionVector.y != 0) ){
+    if((player1 && state.player1.transform.directionVector.y < 0) || (!player1 && state.player2.transform.directionVector.y < 0) ){
       return;
     }
     var tmpState = JSON.parse(JSON.stringify(state));
@@ -22,7 +22,7 @@ export default function Controllers(props) {
   }
 
   const Down = (player1) => {
-    if((player1 && state.player1.transform.directionVector.y != 0) || (!player1 && state.player2.transform.directionVector.y != 0) ){
+    if((player1 && state.player1.transform.directionVector.y > 0) || (!player1 && state.player2.transform.directionVector.y > 0) ){
       return;
     }
 
@@ -32,7 +32,7 @@ export default function Controllers(props) {
     } else {
       tmpState.player2.transform.directionVector.y = 1;
     }
-    console.log("Set down");
+
     setState(tmpState);
 
   }
@@ -47,13 +47,20 @@ export default function Controllers(props) {
 
   }
 
+  const UpdatePosition = (player1,event) => {
+    const {pageY,pageX} = event.nativeEvent;
+    if(pageY < (Engine.screenHeight/2)){
+      Up(player1);
+    } else {
+      Down(player1);
+    }
+  }
+
 
     return (
       <>
-      <View style={{position:'absolute',top:0,left:0,width: '50%',height: '50%'}} onTouchStart={()=> Up(true)} onTouchEnd={() => Stop(true)}></View>
-      <View style={{position:'absolute',top:'50%',left:0,width: '50%',height: '50%'}} onTouchStart={()=> Down(true)} onTouchEnd={() => Stop(true)}></View>
-      <View style={{position:'absolute',top:0,left:'50%',width: '50%',height: '50%'}} onTouchStart={()=> Up()} onTouchEnd={() => Stop()}></View>
-      <View style={{position:'absolute',top:'50%',left:'50%',width: '50%',height: '50%'}} onTouchStart={()=> Down()} onTouchEnd={() => Stop()}></View>
+      <View style={{position:'absolute',top:0,left:0,width: '50%',height: '100%'}} onTouchMove={(e)=> UpdatePosition(true,e)}></View>
+      <View style={{position:'absolute',top:0,left:'50%',width: '50%',height: '100%'}} onTouchMove={(e) => UpdatePosition(false,e)}></View>
       </>
        );
 

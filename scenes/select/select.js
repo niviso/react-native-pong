@@ -30,8 +30,8 @@ export default function Select(props) {
   tmpState.ball.transform.position.x = (Engine.screenWidth/2)-(tmpState.ball.transform.size.width/2);
   tmpState.ball.transform.position.y = (Engine.screenHeight/2)-(tmpState.ball.transform.size.height/2);
 
-  tmpState.player1.transform.position.x = 0;
-  tmpState.player2.transform.position.x = Engine.screenWidth - tmpState.player2.transform.size.width;
+  tmpState.player1.transform.position.x = 50;
+  tmpState.player2.transform.position.x = Engine.screenWidth - tmpState.player2.transform.size.width - 50;
 
   setState(tmpState);
 },[]);

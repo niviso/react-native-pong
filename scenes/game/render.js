@@ -39,8 +39,8 @@ export default function Render(props) {
         }
         tmpState.ball.collidingTimeStamp = time;
       }
-      //tmpState.ball.transform.position.x += state.ball.transform.directionVector.x * Engine.speed;
-      //tmpState.ball.transform.position.y += state.ball.transform.directionVector.y * Engine.speed;
+      tmpState.ball.transform.position.x += state.ball.transform.directionVector.x * Engine.speed;
+      tmpState.ball.transform.position.y += state.ball.transform.directionVector.y * Engine.speed;
 
       tmpState.player1.transform.position.y += state.player1.transform.directionVector.y * Engine.speed;
       tmpState.player2.transform.position.y += state.player2.transform.directionVector.y * Engine.speed;
@@ -71,10 +71,10 @@ export default function Render(props) {
 
   useEffect(() => {
     if(state.player1.points >= 5 ||state.player2.points >= 5){
-      //UpdateSceen("ending");
+      UpdateSceen("ending");
     }
     if (AppState.currentState.match(/inactive|background/)) {
-      //UpdateSceen('pause');
+      UpdateSceen('pause');
     }
       requestRef.current = requestAnimationFrame(animate);
       return () => cancelAnimationFrame(requestRef.current);
