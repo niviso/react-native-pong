@@ -5,7 +5,6 @@ import AudioHelper from '../../helpers/AudioHelper';
 import {confirm} from '../../helpers/sounds';
 import { SimpleAnimation } from 'react-native-simple-animations';
 import Engine from '../../helpers/engine';
-import { Emitter } from 'react-native-particles';
 export default function Ending(props) {
   const {UpdateSceen} = props;
   AudioHelper.play("menu-music");

@@ -7,7 +7,6 @@ import AudioHelper from '../../helpers/AudioHelper';
 import Ball from '../../components/ball/ball';
 import Player from '../../components/player/player';
 import Engine from '../../helpers/engine';
-import { Emitter } from 'react-native-particles';
 import Render from './render';
 import Controllers from '../../components/controllers/controllers';
 
