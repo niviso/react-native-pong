@@ -40,6 +40,7 @@ const GoToStep = (index,setting) => {
 
     AudioHelper.play("confirm");
     setSettings({...settings,...setting});
+    
     if(index !== null){
     setCurrentstep(index);
   } else {

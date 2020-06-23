@@ -9,24 +9,6 @@ export default function Start(props) {
   const {UpdateSceen} = props;
   AudioHelper.play("menu-music");
 
-
-/*  <Emitter
-    numberOfParticles={500}
-    emissionRate={30}
-    interval={0}
-    speed={15}
-    particleLife={3000}
-    direction={360}
-    spread={360}
-    gravity={0}
-    segments={2}
-    infiniteLoop={true}
-    fromPosition={{ x: (Engine.screenWidth/2)-10, y: (Engine.screenHeight/2)-20 }}
-  >
-    <Text style={{fontSize: 40,opacity: 0.5}}>.</Text>
-  </Emitter>
-
-  */
   return (
 
     <TouchableOpacity onPress={() => UpdateSceen('select')} style={Styles.Wrapper}>
@@ -38,7 +20,7 @@ export default function Start(props) {
     <View style={Styles.Spacer}></View>
     <SimpleAnimation delay={500} duration={2000} fade staticType='zoom'>
 
-    <Text style={Styles.Press}>Press anywhere to start</Text>
+    <Text style={Styles.Press}>Tap anywhere to start</Text>
     </SimpleAnimation>
     </TouchableOpacity>
 
