@@ -60,7 +60,7 @@ export default function Controllers(props) {
     return (
       <>
       <View style={{position:'absolute',top:0,left:0,width: '50%',height: '100%'}} onTouchMove={(e)=> UpdatePosition(true,e)}></View>
-      <View style={{position:'absolute',top:0,left:'50%',width: '50%',height: '100%'}} onTouchMove={(e) => UpdatePosition(false,e)}></View>
+      {state.settings.players == 2 && (<View style={{position:'absolute',top:0,left:'50%',width: '50%',height: '100%'}} onTouchMove={(e) => UpdatePosition(false,e)}></View>)}
       </>
        );
 

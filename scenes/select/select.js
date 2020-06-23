@@ -14,12 +14,12 @@ export default function Select(props) {
 
   const [currentStep,setCurrentstep] = useState(0);
 
-  var settings = {
+  const [settings,setSettings] = useState({
     players: 1,
     mode: 'normal',
     playerOneSkill: null,
     playerTwoSkill: null
-  }
+  })
 
   useEffect(()=>{
   if(state.settings){
@@ -31,7 +31,7 @@ export default function Select(props) {
 const GoToStep = (index,setting) => {
 
     AudioHelper.play("confirm");
-    settings = ({...settings,...setting});
+    setSettings({...settings,...setting});
 
     if(index !== null){
     setCurrentstep(index);
