@@ -103,6 +103,7 @@ function getStep(){
       <SimpleAnimation animateOnUpdate delay={0} duration={2000} fade staticType='bounce' style={Styles.Box}>
 
       <Text style={{color:'black',...Styles.Header,...settings.players == 2 ? Styles.Deg90 : null}}>Tap to start</Text>
+      {settings.players == 2 && (<Text style={{color:'black',...Styles.Header,...settings.players == 2 ? Styles.Deg270 : null}}>Tap to start</Text>)}
       </SimpleAnimation>
       </TouchableOpacity>
       </View>
