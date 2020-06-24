@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 
 export default function Ball(props) {
-  const {transform} = props;
+  const {transform,mode} = props;
 
   return (
 

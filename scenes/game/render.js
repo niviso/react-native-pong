@@ -81,9 +81,9 @@ export default function Render(props) {
 
   return (
     <View style={{width: Engine.screenWidth, height: Engine.screenHeight}} onTo>
-    <Ball transform={state.ball.transform}/>
-    <Player color={state.theme.primary} transform={state.player1.transform}/>
-    <Player color={state.theme.secondary} transform={state.player2.transform}/>
+    <Ball mode={state.settings.mode} transform={state.ball.transform}/>
+    <Player mode={state.settings.mode} color={state.theme.primary} transform={state.player1.transform}/>
+    <Player mode={state.settings.mode} color={state.theme.secondary} transform={state.player2.transform}/>
 
     <Points player1Points={state.player1.points} player2Points={state.player2.points}/>
 
