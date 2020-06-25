@@ -17,8 +17,8 @@ export default function Select(props) {
   const [settings,setSettings] = useState({
     players: 1,
     mode: 'normal',
-    playerOneSkill: null,
-    playerTwoSkill: null
+    playerOneSkill: null, //Implement later
+    playerTwoSkill: null //Implement later
   })
 
   useEffect(()=>{
@@ -46,8 +46,6 @@ function getStep(){
   if(currentStep == 0){
     return (
       <View style={Styles.Wrapper}>
-
-
       <TouchableOpacity onPress={() => GoToStep(1,{players: 1})} style={{...Styles.BgBlack,...Styles.Row}}>
       <SimpleAnimation animateOnUpdate delay={0} duration={2000} fade staticType='bounce' style={Styles.Box}>
 
@@ -60,8 +58,6 @@ function getStep(){
       <Text style={{color:'black',...Styles.Header,...Styles.Deg90}}>2 Players</Text>
       </SimpleAnimation>
       </TouchableOpacity>
-
-
       </View>
     )
   }
@@ -87,8 +83,6 @@ function getStep(){
 }   else if(currentStep == 2){
       return(
         <View style={Styles.Wrapper}>
-
-
         <TouchableOpacity onPress={() => GoToStep(null)} style={{...Styles.BgBlack,...Styles.Row}}>
         <SimpleAnimation animateOnUpdate delay={0} duration={2000} fade staticType='bounce' style={Styles.Box}>
         <Text style={{color:'white',...Styles.Header,...settings.players == 2 ? Styles.Deg90 : null}}>Tap to start</Text>
