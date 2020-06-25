@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React,{useContext,useEffect} from 'react';
 import Styles from './styles.scss';
 import { Text, View,Image,TouchableOpacity } from 'react-native';
 import AudioHelper from '../../helpers/AudioHelper';
@@ -12,7 +12,11 @@ export default function Ending(props) {
   const [state,setState] = useContext(AppContext);
 
   AudioHelper.play("menu-music");
-
+  useEffect(()=>{
+    if(state.settings){
+        setState(Engine.resetSettings(state));
+    }
+  },[state]);
   return (
 
     <TouchableOpacity onPress={() => UpdateSceen('select')} style={Styles.Wrapper}>
