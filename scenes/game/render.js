@@ -38,6 +38,7 @@ export default function Render(props) {
         }
         tmpState.ball.collidingTimeStamp = time;
       }
+
       tmpState.ball.transform.position.x += state.ball.transform.directionVector.x * Engine.speed;
       tmpState.ball.transform.position.y += state.ball.transform.directionVector.y * Engine.speed;
 
@@ -88,7 +89,7 @@ export default function Render(props) {
     <Points player1Points={state.player1.points} player2Points={state.player2.points}/>
 
     {paused && (
-    <StartupTimer setPause={setPause}/>
+    <StartupTimer players={state.settings.players} setPause={setPause}/>
     )}
     </View>
   );

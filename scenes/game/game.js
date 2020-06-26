@@ -20,5 +20,8 @@ export default function Game(props) {
     <Controllers/>
 
     </View>
+
+    //set EXPO_DEBUG=true
+    //expo build:ios -t simulator
   );
 }

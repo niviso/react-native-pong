@@ -83,12 +83,13 @@ function getStep(){
 }   else if(currentStep == 2){
       return(
         <View style={Styles.Wrapper}>
-        <TouchableOpacity onPress={() => GoToStep(null)} style={{...Styles.BgBlack,...Styles.Row}}>
+        {settings.players == 2 && (<TouchableOpacity onPress={() => GoToStep(null)} style={{...Styles.BgBlack,...Styles.Row}}>
         <SimpleAnimation animateOnUpdate delay={0} duration={2000} fade staticType='bounce' style={Styles.Box}>
         <Text style={{color:'white',...Styles.Header,...settings.players == 2 ? Styles.Deg90 : null}}>Tap to start</Text>
 
         </SimpleAnimation>
         </TouchableOpacity>
+        )}
         <TouchableOpacity onPress={() => GoToStep(null)} style={Styles.Row}>
         <SimpleAnimation animateOnUpdate delay={100} duration={2000} fade staticType='bounce' style={Styles.Box}>
 

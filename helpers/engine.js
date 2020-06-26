@@ -17,6 +17,23 @@ const Engine = {
     tmpState.settings = null;
     return tmpState;
   },
+  ai: function(state,player1=false){
+    if(player1){
+      if(state.player1.transform.position.y > state.ball.transform.position.y){
+        state.player1.transform.directionVector.y = 1;
+      } else {
+        state.player1.transform.directionVector.y = -1;
+      }
+    } else {
+      if(state.player2.transform.position.y > state.ball.transform.position.y){
+        state.player2.transform.directionVector.y = 1;
+      } else {
+        state.player2.transform.directionVector.y = 1;
+      }
+    }
+
+    return state;
+  },
   resetPositions: function(state){
     var tmpState = JSON.parse(JSON.stringify(state));
 
@@ -101,6 +118,10 @@ const Engine = {
       }
     }
 
+    }
+
+    if(tmpState.settings.players == 1){
+      tmpState = this.ai(tmpState);
     }
 
     return tmpState;
