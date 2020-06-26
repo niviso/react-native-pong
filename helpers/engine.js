@@ -10,6 +10,7 @@ const Engine = {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.speed = speed;
+    this.initialSpeed = speed;
     this.initialized = true;
   },
   resetSettings: function(state){
@@ -20,13 +21,13 @@ const Engine = {
   ai: function(state,player1=false){
     if(player1){
       if(state.player1.transform.position.y > state.ball.transform.position.y){
-        state.player1.transform.directionVector.y = 1;
-      } else {
         state.player1.transform.directionVector.y = -1;
+      } else {
+        state.player1.transform.directionVector.y = 1;
       }
     } else {
       if(state.player2.transform.position.y > state.ball.transform.position.y){
-        state.player2.transform.directionVector.y = 1;
+        state.player2.transform.directionVector.y = -1;
       } else {
         state.player2.transform.directionVector.y = 1;
       }
@@ -34,6 +35,9 @@ const Engine = {
 
     return state;
   },
+  randomInteger: function(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+},
   resetPositions: function(state){
     var tmpState = JSON.parse(JSON.stringify(state));
 
@@ -49,6 +53,13 @@ const Engine = {
     tmpState.player1.transform.position.y = (Engine.screenHeight/2) - (tmpState.player1.transform.size.height/2);
     tmpState.player2.transform.position.y = (Engine.screenHeight/2) - (tmpState.player2.transform.size.height/2);
     return tmpState;
+  },
+  resetBallPosition: function(state){
+    state.ball.transform.position.x = this.screenWidth/2;
+    state.ball.transform.position.y = this.screenHeight/2;
+    state.ball.transform.directionVector.x = this.randomInteger(0,1) == 1 ? 1 : -1;
+    this.speed = this.initialSpeed;
+    return state;
   },
   getNewPosition: function(state,speed){
     if(!this.initialized){
@@ -107,8 +118,7 @@ const Engine = {
     }
 
     if(collisionRight || collisionLeft){
-      tmpState.ball.transform.position.x = this.screenWidth/2;
-      tmpState.ball.transform.position.y = this.screenHeight/2;
+      tmpState = this.resetBallPosition(tmpState);
       this.speed = 5;
       if(collisionRight){
         tmpState.player1.points++;
