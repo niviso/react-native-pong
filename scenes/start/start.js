@@ -10,7 +10,7 @@ export default function Start(props) {
   AudioHelper.play("menu-music");
 
   return (
-
+    <>
     <TouchableOpacity onPress={() => UpdateSceen('select')} style={Styles.Wrapper}>
 
     <SimpleAnimation delay={250} duration={2000} fade staticType='zoom'>
@@ -23,6 +23,9 @@ export default function Start(props) {
     <Text style={Styles.Press}>Tap anywhere to start</Text>
     </SimpleAnimation>
     </TouchableOpacity>
-
+    <TouchableOpacity style={Styles.GoToCredits} onPress={() => UpdateSceen('credits')}>
+    <Text style={Styles.GotToCreditsText}>CREDITS</Text>
+    </TouchableOpacity>
+    </>
   );
 }

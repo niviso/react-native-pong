@@ -5,6 +5,7 @@ import Start from './scenes/start/start';
 import Select from './scenes/select/select';
 import Pause from './scenes/pause/pause';
 import Ending from './scenes/ending/ending';
+import Credits from './scenes/credits/credits';
 
 import {impact,bg,bg_02,confirm,boop,countdown} from './helpers/sounds';
 import AudioHelper from './helpers/AudioHelper';
@@ -24,7 +25,7 @@ export default function App() {
 
   const screenWidth = Math.round(Dimensions.get('window').width);
   const screenHeight = Math.round(Dimensions.get('window').height);
-  const [sceen,setSceen] = useState('start');
+  const [sceen,setSceen] = useState('credits');
   Engine.init({screenWidth: screenWidth,screenHeight: screenHeight});
 
   const UpdateSceen = (sceen) => {
@@ -42,6 +43,7 @@ export default function App() {
     {sceen == 'game' && <Game  UpdateSceen={UpdateSceen}/> }
     {sceen == 'pause' && <Pause  UpdateSceen={UpdateSceen}/> }
     {sceen == 'ending' && <Ending  UpdateSceen={UpdateSceen}/> }
+    {sceen == 'credits' && <Credits  UpdateSceen={UpdateSceen}/> }
 
     </AppProvider>
   );
