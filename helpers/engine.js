@@ -4,13 +4,17 @@ const Engine = {
   screenWidth : null,
   screenHeight: null,
   speed: 1,
+  initialSpeed: null,
+  maxSpeed: null,
   initialized: false,
   init: function(props){
-    const {screenWidth,screenHeight,speed=5} = props;
+    const {screenWidth,screenHeight,speed=5,maxSpeed=10} = props;
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.speed = speed;
     this.initialSpeed = speed;
+    this.maxSpeed = maxSpeed;
+
     this.initialized = true;
   },
   resetSettings: function(state){

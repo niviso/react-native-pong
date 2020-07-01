@@ -6,7 +6,7 @@ import {menu,impact} from '../../helpers/sounds';
 import { SimpleAnimation } from 'react-native-simple-animations';
 import Engine from '../../helpers/engine';
 import {AppContext} from '../../context/appContext';
-
+import Assets from '../../context/assets';
 export default function Select(props) {
   const {UpdateSceen} = props;
 
@@ -36,6 +36,7 @@ const GoToStep = (index,setting) => {
     setCurrentstep(index);
   } else {
     AudioHelper.stopAll();
+    //settings.mode == 'heroic' ? Engine.speed = Engine.maxSpeed : Engine.speed = Engine.initialSpeed
     setState({...Engine.resetPositions(state),...{settings: settings}});
   }
 

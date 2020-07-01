@@ -1,5 +1,5 @@
-const AssetsTemplates = {
-  Ball: function(){
+const Assets = {
+  ball: function(){
       return {
             transform: {
               position: {
@@ -7,8 +7,8 @@ const AssetsTemplates = {
                 y: 0
               },
               size: {
-                width: 25,
-                height: 25
+                width: 30,
+                height: 30
               },
               directionVector: {
                 x: 1,
@@ -19,7 +19,7 @@ const AssetsTemplates = {
             dead: false
           }
   },
-  Player: function(){
+  player: function(){
     return {
       transform: {
         position: {
@@ -41,4 +41,4 @@ const AssetsTemplates = {
 
 }
 
-export default AssetsTemplates;
+export default Assets;
